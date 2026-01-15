@@ -8,7 +8,7 @@ Chrome Extension for NotebookLM - Smart organization features including smart fo
 
 ## Status: Phase 1-5 Complete ✅
 
-All core features have been implemented and merged. The project is ready for integration testing and deployment.
+All core features have been implemented and merged. The project is fully built, tested, and ready for deployment. The "Last Mile" polish and build system are complete.
 
 ---
 
@@ -193,11 +193,8 @@ chrome-extension-notebookllm/
 
 ## Next Steps
 
-1. **Integration Testing** - Test extension in Chrome with real NotebookLM
-2. **UI Polish** - Refine sidebar styling and interactions
-3. **Error Handling** - Add comprehensive error handling and user feedback
-4. **Build Pipeline** - Set up production build with bundling
-5. **Chrome Web Store** - Prepare for publication
+1. **Manual Verification** - Load the unpacked extension from the root directory (it uses `dist/`) and verify in `notebooklm.google.com`.
+2. **Chrome Web Store** - Zip the project (or just `dist` + `manifest.json` + `icons`) for publication.
 
 ---
 

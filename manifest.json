@@ -1,4 +1,3 @@
-
 {
     "manifest_version": 3,
     "name": "NotebookLM+tidus",
@@ -15,12 +14,12 @@
                 "https://notebooklm.google.com/*"
             ],
             "js": [
-                "content.js"
+                "dist/content.js"
             ]
         }
     ],
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "dist/background.js"
     },
     "icons": {
         "16": "icons/icon16.png",

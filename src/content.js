@@ -1,3 +1,5 @@
+import './components/sidebar/sidebar.js';
+
 const SIDEBAR_ID = 'notebooklm-enhanced-sidebar';
 
 function injectSidebar() {

@@ -41,7 +41,11 @@ describe('Content Script Injection and Resilience', () => {
 
     // Load the injection script
     const contentScriptPath = path.resolve(process.cwd(), 'src/content.js');
-    const contentScript = fs.readFileSync(contentScriptPath, 'utf8');
+    let contentScript = fs.readFileSync(contentScriptPath, 'utf8');
+
+    // Remove the import statement since we loaded the dependency manually
+    contentScript = contentScript.replace(/import .*;/g, '');
+
     const contentEl = document.createElement('script');
     contentEl.textContent = contentScript;
     document.body.appendChild(contentEl);

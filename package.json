@@ -9,7 +9,8 @@
   "scripts": {
     "test": "vitest",
     "test:watch": "vitest --watch",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "build": "vite build --config vite.config.build.js"
   },
   "repository": {
     "type": "git",

@@ -5,7 +5,7 @@ describe('Sidebar Component', () => {
   let sidebar;
 
   beforeEach(() => {
-    sidebar = document.createElement('sidebar-component');
+    sidebar = document.createElement('notebooklm-sidebar');
     document.body.appendChild(sidebar);
   });
 
