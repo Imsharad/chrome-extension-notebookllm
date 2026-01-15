@@ -4,11 +4,12 @@
   "description": "A Chrome extension that enhances NotebookLM with advanced organization features including smart folders, tags, and metadata management.",
   "main": "index.js",
   "directories": {
-    "doc": "docs",
-    "test": "tests"
+    "doc": "docs"
   },
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/Imsharad/chrome-extension-notebookllm#readme",
   "devDependencies": {
+    "@types/chrome": "^0.1.33",
     "jsdom": "^27.4.0",
     "vitest": "^4.0.17"
   }

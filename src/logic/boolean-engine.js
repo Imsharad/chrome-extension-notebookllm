@@ -1,16 +1,4 @@
-export function evaluate(notebook, rule) {
-  if (rule.type === 'AND') {
-    return rule.conditions.every(condition => evaluate(notebook, condition));
-  }
-
-  if (rule.type === 'OR') {
-    return rule.conditions.some(condition => evaluate(notebook, condition));
-  }
-
-  if (rule.type === 'NOT') {
-    return !evaluate(notebook, rule.condition);
-  }
-
+function evaluateSimpleRule(notebook, rule) {
   const { field, operator, value } = rule;
   const notebookValue = notebook[field];
 
@@ -21,35 +9,44 @@ export function evaluate(notebook, rule) {
   switch (operator) {
     case 'contains':
       if (Array.isArray(notebookValue)) {
-        return notebookValue.some(item => item.toLowerCase().includes(value.toLowerCase()));
+        return notebookValue.includes(value);
       }
-      if (typeof notebookValue === 'string') {
-        return notebookValue.toLowerCase().includes(value.toLowerCase());
-      }
-      return false;
-
-    case 'equals':
-      return notebookValue === value;
-
+      return notebookValue.toLowerCase().includes(value.toLowerCase());
     case 'startsWith':
-      if (typeof notebookValue === 'string') {
-        return notebookValue.startsWith(value);
-      }
-      return false;
-
+      return notebookValue.toLowerCase().startsWith(value.toLowerCase());
+    case 'is':
+      return notebookValue === value;
     case 'greaterThan':
-      if (typeof notebookValue === 'number') {
-        return notebookValue > value;
-      }
-      return false;
-
+      return notebookValue > value;
     case 'lessThan':
-      if (typeof notebookValue === 'number') {
-        return notebookValue < value;
-      }
-      return false;
-
+      return notebookValue < value;
     default:
       return false;
   }
+}
+
+function evaluateGroup(notebook, group) {
+  const { operator, children } = group;
+
+  if (operator === 'AND') {
+    return children.every(child => evaluateRule(notebook, child));
+  }
+
+  if (operator === 'OR') {
+    return children.some(child => evaluateRule(notebook, child));
+  }
+
+  return false;
+}
+
+export function evaluateRule(notebook, rule) {
+  if (rule.type === 'group') {
+    return evaluateGroup(notebook, rule);
+  }
+
+  if (rule.type === 'rule') {
+    return evaluateSimpleRule(notebook, rule);
+  }
+
+  return false;
 }
