@@ -2,30 +2,43 @@ class Sidebar extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
+    this.render();
+    this.shadowRoot.getElementById('toggle-btn').addEventListener('click', () => this.toggle());
   }
 
-  connectedCallback() {
-    const cssUrl = chrome.runtime.getURL('src/components/sidebar/sidebar.css');
+  get collapsed() {
+    return this.hasAttribute('collapsed');
+  }
+
+  toggle() {
+    if (this.collapsed) {
+      this.removeAttribute('collapsed');
+    } else {
+      this.setAttribute('collapsed', '');
+    }
+  }
+
+  render() {
     this.shadowRoot.innerHTML = `
-      <link rel="stylesheet" href="${cssUrl}">
-      <div class="sidebar-container">
-        <h2>NotebookLM Enhanced</h2>
-        <p>Sidebar content goes here.</p>
+      <style>
+        :host {
+          display: block;
+          width: 250px;
+          height: 100vh;
+          background-color: #f0f0f0;
+          transition: width 0.3s;
+          border-right: 1px solid #ccc;
+        }
+        :host([collapsed]) {
+          width: 50px;
+        }
+      </style>
+      <div id="sidebar">
         <button id="toggle-btn">Toggle</button>
       </div>
     `;
-
-    this.shadowRoot.getElementById('toggle-btn').addEventListener('click', () => {
-        const container = this.shadowRoot.querySelector('.sidebar-container');
-        if (container.style.width === '50px') {
-            container.style.width = '250px';
-        } else {
-            container.style.width = '50px';
-        }
-    });
   }
 }
 
-if (!customElements.get('notebooklm-sidebar')) {
-  customElements.define('notebooklm-sidebar', Sidebar);
-}
+customElements.define('sidebar-component', Sidebar);
+export default Sidebar;
