@@ -1,0 +1,30 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "A Chrome extension that enhances NotebookLM with advanced organization features including smart folders, tags, and metadata management.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Imsharad/chrome-extension-notebookllm.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Imsharad/chrome-extension-notebookllm/issues"
+  },
+  "homepage": "https://github.com/Imsharad/chrome-extension-notebookllm#readme",
+  "devDependencies": {
+    "jsdom": "^27.4.0",
+    "vitest": "^4.0.17"
+  }
+}
