@@ -27,5 +27,8 @@
     "@types/chrome": "^0.1.33",
     "jsdom": "^27.4.0",
     "vitest": "^4.0.17"
+  },
+  "dependencies": {
+    "lz-string": "^1.5.0"
   }
 }

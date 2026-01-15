@@ -7,12 +7,18 @@
 <body>
     <div id="app-root">
         <main-content>
-            <notebook-card>
-                <div class="title">Notebook 1</div>
-            </notebook-card>
-            <notebook-card>
-                <div class="title">Notebook 2</div>
-            </notebook-card>
+            <div id="notebook-grid">
+                <a href="./notebook/notebook-id-1">
+                    <notebook-card>
+                        <div role="heading" class="title">Notebook 1</div>
+                    </notebook-card>
+                </a>
+                <a href="./notebook/notebook-id-2">
+                    <notebook-card>
+                        <div role="heading" class="title">Notebook 2</div>
+                    </notebook-card>
+                </a>
+            </div>
         </main-content>
     </div>
 </body>

@@ -1,6 +1,37 @@
 export const SCHEMA_VERSION = 1;
 export const STORAGE_KEY = 'notebookNestStore';
 
+// --- Data Classes ---
+
+export class Notebook {
+  constructor(title, id, url = 'https://notebooklm.google.com/notebook/' + id) {
+    this.id = id;
+    this.title = title;
+    this.url = url;
+    this.tags = [];
+    this.metadata = {};
+    this.createdAt = new Date().toISOString();
+    this.updatedAt = new Date().toISOString();
+  }
+}
+
+export class SmartFolder {
+  constructor(name, id, rules = []) {
+    this.id = id;
+    this.name = name;
+    this.rules = rules;
+    this.createdAt = new Date().toISOString();
+  }
+}
+
+export class Tag {
+  constructor(name, id, color = '#3B82F6') {
+    this.id = id;
+    this.name = name;
+    this.color = color;
+  }
+}
+
 // --- Validation Functions ---
 
 function isValidURL(string) {
