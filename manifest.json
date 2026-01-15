@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "NotebookLM Enhanced",
+  "version": "0.1.0",
+  "description": "Enhances NotebookLM with smart folders, tags, and more.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://notebooklm.google.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://notebooklm.google.com/*"
+      ],
+      "js": [
+        "src/components/sidebar/sidebar.js",
+        "src/content.js"
+      ],
+      "css": [
+        "src/styles.css"
+      ]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/components/sidebar/sidebar.css"
+      ],
+      "matches": [
+        "https://notebooklm.google.com/*"
+      ]
+    }
+  ]
+}
