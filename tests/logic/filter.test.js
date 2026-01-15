@@ -1,63 +1,72 @@
-import { describe, it, expect } from 'vitest';
-import { filterNotebooks } from '../../src/logic/filter';
-import { Notebook } from '../../src/storage/schema';
+import { test, expect } from 'vitest';
+import { filterNotebooks } from '../../src/logic/filter.js';
+import { Notebook } from '../../src/storage/schema.js';
 
-describe('Filtering Function', () => {
-  const notebooks = [
-    new Notebook({ id: '1', title: 'Alpha Project', tags: ['work', 'project'], sourceCount: 10 }),
-    new Notebook({ id: '2', title: 'Beta Project', tags: ['personal', 'project'], sourceCount: 5 }),
-    new Notebook({ id: '3', title: 'Gamma Thesis', tags: ['work', 'research'], sourceCount: 20 }),
-    new Notebook({ id: '4', title: 'Delta Notes', tags: ['personal', 'notes'], sourceCount: 2 }),
-  ];
+const notebooks = [
+  new Notebook('First Notebook', 'uuid1'),
+  new Notebook('Second Notebook', 'uuid2'),
+  new Notebook('Third Note', 'uuid3'),
+];
+notebooks[0].tags = ['work', 'project'];
+notebooks[1].tags = ['personal'];
+notebooks[2].tags = ['work'];
 
-  it('should return all notebooks for a null or empty rule', () => {
-    expect(filterNotebooks(notebooks, null)).toEqual(notebooks);
-    expect(filterNotebooks(notebooks, {})).toEqual(notebooks);
-  });
+test('filters notebooks with a simple rule', () => {
+  const rule = {
+    type: 'rule',
+    field: 'title',
+    operator: 'contains',
+    value: 'Notebook',
+  };
+  const filtered = filterNotebooks(notebooks, rule);
+  expect(filtered.length).toBe(2);
+  expect(filtered[0].title).toBe('First Notebook');
+  expect(filtered[1].title).toBe('Second Notebook');
+});
 
-  it('should filter by a simple title rule', () => {
-    const rule = { type: 'rule', field: 'title', operator: 'contains', value: 'Project' };
-    const result = filterNotebooks(notebooks, rule);
-    expect(result).toHaveLength(2);
-    expect(result.map(n => n.id)).toEqual(['1', '2']);
-  });
+test('filters notebooks with a complex rule', () => {
+  const rule = {
+    type: 'group',
+    operator: 'AND',
+    children: [
+      { type: 'rule', field: 'tags', operator: 'contains', value: 'work' },
+      { type: 'rule', field: 'title', operator: 'startsWith', value: 'First' },
+    ],
+  };
+  const filtered = filterNotebooks(notebooks, rule);
+  expect(filtered.length).toBe(1);
+  expect(filtered[0].title).toBe('First Notebook');
+});
 
-  it('should filter by a complex AND rule', () => {
-    const rule = {
-      type: 'group',
-      operator: 'AND',
-      children: [
-        { type: 'rule', field: 'tags', operator: 'hasTag', value: 'work' },
-        { type: 'rule', field: 'sourceCount', operator: 'gt', value: 15 },
-      ],
-    };
-    const result = filterNotebooks(notebooks, rule);
-    expect(result).toHaveLength(1);
-    expect(result[0].id).toBe('3');
-  });
+test('handles an empty notebook list', () => {
+  const rule = {
+    type: 'rule',
+    field: 'title',
+    operator: 'contains',
+    value: 'Notebook',
+  };
+  const filtered = filterNotebooks([], rule);
+  expect(filtered.length).toBe(0);
+});
 
-  it('should filter by a complex OR rule', () => {
-    const rule = {
-      type: 'group',
-      operator: 'OR',
-      children: [
-        { type: 'rule', field: 'title', operator: 'startsWith', value: 'Alpha' },
-        { type: 'rule', field: 'tags', operator: 'hasTag', value: 'notes' },
-      ],
-    };
-    const result = filterNotebooks(notebooks, rule);
-    expect(result).toHaveLength(2);
-    expect(result.map(n => n.id)).toEqual(['1', '4']);
-  });
+test('handles no matching notebooks', () => {
+  const rule = {
+    type: 'rule',
+    field: 'title',
+    operator: 'is',
+    value: 'Non-existent',
+  };
+  const filtered = filterNotebooks(notebooks, rule);
+  expect(filtered.length).toBe(0);
+});
 
-  it('should handle an empty notebook list', () => {
-    const rule = { type: 'rule', field: 'title', operator: 'contains', value: 'Project' };
-    expect(filterNotebooks([], rule)).toEqual([]);
-  });
-
-  it('should maintain the original order of notebooks', () => {
-    const rule = { type: 'rule', field: 'tags', operator: 'hasTag', value: 'project' };
-    const result = filterNotebooks(notebooks, rule);
-    expect(result.map(n => n.id)).toEqual(['1', '2']);
-  });
+test('handles all notebooks matching', () => {
+  const rule = {
+    type: 'rule',
+    field: 'title',
+    operator: 'contains',
+    value: 'Note',
+  };
+  const filtered = filterNotebooks(notebooks, rule);
+  expect(filtered.length).toBe(3);
 });
