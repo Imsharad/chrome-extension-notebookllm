@@ -1,0 +1,128 @@
+[
+    {
+        "id": "setup-001",
+        "title": "Phase 0: Foundation & TDD Setup",
+        "status": "pending",
+        "priority": "high",
+        "description": "Initialize the project, testing infrastructure, and Manifest V3.",
+        "tasks": [
+            {
+                "id": "setup-001-a",
+                "title": "Initialize Project & Test Harness",
+                "description": "Initialize npm, install Vitest + JSDOM for TDD, and configure test scripts.",
+                "status": "pending"
+            },
+            {
+                "id": "setup-001-b",
+                "title": "Create Manifest V3",
+                "description": "Define initial manifest.json with necessary permissions.",
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "id": "phase-1-viewer",
+        "title": "Phase 1: The Viewer and Discovery",
+        "status": "pending",
+        "priority": "high",
+        "description": "Establish the extension foothold and prove reliable notebook identification using TDD.",
+        "tasks": [
+            {
+                "id": "p1-001",
+                "title": "Collect DOM Snapshots",
+                "description": "Manually save HTML snippets of the NotebookLM dashboard to use as test fixtures.",
+                "status": "pending"
+            },
+            {
+                "id": "p1-002",
+                "title": "TDD: Heuristic Scraper",
+                "description": "1. Write tests asserting correct metadata extraction from snapshots. 2. Implement the Scraper.",
+                "status": "pending"
+            },
+            {
+                "id": "p1-003",
+                "title": "TDD: MutationObserver",
+                "description": "1. Write tests simulating DOM changes. 2. Implement Observer to detect 'App Loaded' state.",
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "id": "phase-2-sidebar",
+        "title": "Phase 2: The Parasitic Sidebar",
+        "status": "pending",
+        "priority": "high",
+        "description": "Inject the UI sidebar with TDD for component logic.",
+        "tasks": [
+            {
+                "id": "p2-001",
+                "title": "TDD: Sidebar Component",
+                "description": "1. Write component tests (Lit/Vanilla) for rendering and collapsing state. 2. Implement Component.",
+                "status": "pending"
+            },
+            {
+                "id": "p2-002",
+                "title": "Shadow DOM Injection",
+                "description": "Implement the injection logic (harder to unit test, likely manual verification + integration test).",
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "id": "phase-3-metadata",
+        "title": "Phase 3: Metadata and Storage",
+        "status": "pending",
+        "priority": "medium",
+        "description": "Data Layer implementation with TDD.",
+        "tasks": [
+            {
+                "id": "p3-001",
+                "title": "TDD: Storage Schema",
+                "description": "1. Write tests for data models (Notebook, SmartFolder, Tag) and validation. 2. Implement Schema.",
+                "status": "pending"
+            },
+            {
+                "id": "p3-002",
+                "title": "TDD: Tag Visualization",
+                "description": "1. Write tests for generating tag chip HTML/Styles. 2. Implement rendering logic.",
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "id": "phase-4-logic",
+        "title": "Phase 4: The Logic Engine (Smart Folders)",
+        "status": "pending",
+        "priority": "medium",
+        "description": "Core Logic Engine verified heavily by TDD.",
+        "tasks": [
+            {
+                "id": "p4-001",
+                "title": "TDD: Boolean Logic Engine",
+                "description": "1. Write comprehensive test cases for JSON Rules (AND/OR/NOT/Nested). 2. Implement Engine.",
+                "status": "pending"
+            },
+            {
+                "id": "p4-002",
+                "title": "TDD: Filtering",
+                "description": "1. Write tests for the filtering function (List<Notebook> + Rule -> FilteredList). 2. Implement Filter.",
+                "status": "pending"
+            }
+        ]
+    },
+    {
+        "id": "phase-5-polish",
+        "title": "Phase 5: Sync and Polish",
+        "status": "pending",
+        "priority": "low",
+        "description": "Final polish and complex sync logic.",
+        "tasks": [
+            {
+                "id": "p5-001",
+                "title": "TDD: Hybrid Storage",
+                "description": "1. Write tests for LZString compression and Quota handling. 2. Implement Sync Service.",
+                "status": "pending"
+            }
+        ]
+    }
+]
